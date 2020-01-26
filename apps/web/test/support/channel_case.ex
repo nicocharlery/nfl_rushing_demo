@@ -1,9 +1,9 @@
-defmodule NflWeb.ConnCase do
+defmodule Web.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
-  tests that require setting up a connection.
+  channel tests.
 
-  Such tests rely on `Phoenix.ConnTest` and also
+  Such tests rely on `Phoenix.ChannelTest` and also
   import other functionality to make it easier
   to build common data structures and query the data layer.
 
@@ -11,7 +11,7 @@ defmodule NflWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use NflWeb.ConnCase, async: true`, although
+  by setting `use Web.ChannelCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -19,12 +19,11 @@ defmodule NflWeb.ConnCase do
 
   using do
     quote do
-      # Import conveniences for testing with connections
-      use Phoenix.ConnTest
-      alias NflWeb.Router.Helpers, as: Routes
+      # Import conveniences for testing with channels
+      use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint NflWeb.Endpoint
+      @endpoint Web.Endpoint
     end
   end
 
@@ -35,6 +34,6 @@ defmodule NflWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(Nfl.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    :ok
   end
 end

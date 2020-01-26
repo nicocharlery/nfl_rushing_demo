@@ -13,16 +13,16 @@ use Mix.Config
 config :nfl,
   ecto_repos: [Nfl.Repo]
 
-config :nfl_web,
+config :web,
   ecto_repos: [Nfl.Repo],
   generators: [context_app: :nfl]
 
 # Configures the endpoint
-config :nfl_web, NflWeb.Endpoint,
+config :web, Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "ewruferhcp9qhdWXbz260O50INK8pzeL1X1AHtHjhU8hT46XvKZ2rumYEZklNZCI",
-  render_errors: [view: NflWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: NflWeb.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: Web.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Web.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,

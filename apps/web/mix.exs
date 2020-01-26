@@ -1,9 +1,9 @@
-defmodule NflWeb.MixProject do
+defmodule Web.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :nfl_web,
+      app: :web,
       version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
@@ -23,7 +23,7 @@ defmodule NflWeb.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {NflWeb.Application, []},
+      mod: {Web.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

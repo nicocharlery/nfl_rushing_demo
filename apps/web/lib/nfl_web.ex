@@ -1,12 +1,12 @@
-defmodule NflWeb do
+defmodule Web do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use NflWeb, :controller
-      use NflWeb, :view
+      use Web, :controller
+      use Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,18 +19,18 @@ defmodule NflWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: NflWeb
+      use Phoenix.Controller, namespace: Web
       import Plug.Conn
-      import NflWeb.Gettext
-      alias NflWeb.Router.Helpers, as: Routes
+      import Web.Gettext
+      alias Web.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/nfl_web/templates",
-        namespace: NflWeb
+        root: "lib/web/templates",
+        namespace: Web
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
@@ -38,9 +38,9 @@ defmodule NflWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import NflWeb.ErrorHelpers
-      import NflWeb.Gettext
-      alias NflWeb.Router.Helpers, as: Routes
+      import Web.ErrorHelpers
+      import Web.Gettext
+      alias Web.Router.Helpers, as: Routes
     end
   end
 
@@ -55,7 +55,7 @@ defmodule NflWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import NflWeb.Gettext
+      import Web.Gettext
     end
   end
 
