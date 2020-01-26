@@ -5,7 +5,11 @@ defmodule Web.PageController do
     render(
       conn,
       "index.html",
-      players: Nfl.Players.PlayerRepository.all
+      players: player_repository(conn).all
     )
+  end
+
+  defp player_repository(conn) do
+    Map.get(conn.private, :player_repository, Nfl.Players.PlayerRepository)
   end
 end
