@@ -7,7 +7,6 @@ defmodule Nfl.Application do
 
   def start(_type, _args) do
     children = [
-      Nfl.Repo
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one, name: Nfl.Supervisor)

@@ -10,9 +10,6 @@
 use Mix.Config
 
 # Configure Mix tasks and generators
-config :nfl,
-  ecto_repos: [Nfl.Repo]
-
 config :web,
   ecto_repos: [Nfl.Repo],
   generators: [context_app: :nfl]
