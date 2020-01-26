@@ -8,24 +8,33 @@ defmodule Nfl.Players.PlayerRepository do
 
   alias Nfl.Players.Player
 
+  @data_filename "rushing.json"
+
   def all do
-      %Player{
-	name: "Joe Banyard",
-	team: "JAX",
-	pos: "RB",
-	att: 2,
-	att_g: 2,
-	yds: 7,
-	avg: 3.5,
-	yds_g: 7,
-	td: 0,
-	lng: "7",
-	first: 0,
-	first_percent: 0,
-	val_20p: 0,
-	val_40p: 0,
-	fum: 0
-      }
-      |> List.wrap()
+    :code.priv_dir(:nfl)
+    |> Path.join(@data_filename)
+    |> File.read!()
+    |> Jason.decode!()
+    |> Enum.map(&load_player/1)
+  end
+
+  defp load_player(json_player_data) do
+    %Player{
+      name: json_player_data["Player"],
+      team: json_player_data["Team"],
+      pos: json_player_data["Pos"],
+      att: json_player_data["Att"],
+      att_g: json_player_data["Att/G"],
+      yds: json_player_data["Yds"],
+      avg: json_player_data["Avg"],
+      yds_g: json_player_data["Yds/G"],
+      td: json_player_data["TD"],
+      lng: json_player_data["Lng"],
+      first: json_player_data["1st"],
+      first_percent: json_player_data["1st%"],
+      val_20p: json_player_data["20+"],
+      val_40p: json_player_data["40+"],
+      fum: json_player_data["FUM"]
+    }
   end
 end
