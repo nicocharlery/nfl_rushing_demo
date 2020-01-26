@@ -4,6 +4,9 @@ defmodule Web.PageControllerTest do
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
 
-    assert html_response(conn, 200) =~ "NFL Rushing"
+    page = html_response(conn, 200)
+    assert page =~ "NFL Rushing"
+    assert page =~ "JAX"
+    assert page =~ "Joe Banyard"
   end
 end

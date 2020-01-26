@@ -1,4 +1,15 @@
 <section class="row">
   <article class="column">
     <h2>NFL Rushing</h2>
+
+    <ul>
+      <%= for player <- @players do %>
+	  <li>
+	    <%= player.name %>
+	    <%= player.team %>
+	  </li>
+      <% end %>
+    </ul>
+
+
 </section>
