@@ -1,0 +1,19 @@
+FROM bitwalker/alpine-elixir-phoenix:1.9.2
+
+ENV MIX_ENV dev
+
+RUN apk update && \
+    apk upgrade --no-cache && \
+    apk add watchman --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing
+
+RUN mkdir -p /var/run/watchman/root-state
+
+RUN echo "cd /app && watchman -j < .watchman/format.json" >> ~/.bashrc
+
+WORKDIR /app
+COPY . .
+
+ENV PORT 5000
+EXPOSE 5000 4000 4002
+
+CMD ["bash"]

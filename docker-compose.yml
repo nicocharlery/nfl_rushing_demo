@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+ application:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - build:/app/_build
+      - deps:/app/deps
+      - node_modules:/app/apps/web/assets/node_modules
+      - static:/app/apps/web/priv/static
+    ports:
+      - 5000:5000
+      - 4000:4000
+      - 4002:4002
+    tty: true
+
+# volumes defined for use in above configuration
+volumes:
+  build:
+  deps:
+  node_modules:
+  static:
