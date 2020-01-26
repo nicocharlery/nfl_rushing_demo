@@ -1,6 +1,15 @@
-defmodule Nfl.PlayerRepository do
+defmodule Nfl.Players.PlayerRepository do
+  defmodule Behaviour do
+    @moduledoc false
+
+    @callback all() :: [Nfl.Players.Player.t]
+  end
+  @behaviour Behaviour
+
+  alias Nfl.Players.Player
+
   def all do
-      %{
+      %Player{
 	name: "Joe Banyard",
 	team: "JAX",
 	pos: "RB",
