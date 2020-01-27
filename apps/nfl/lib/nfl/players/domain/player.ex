@@ -1,4 +1,5 @@
 defmodule Nfl.Players.Player do
+  @derive Jason.Encoder
   defstruct [
     :name,
     :team,
