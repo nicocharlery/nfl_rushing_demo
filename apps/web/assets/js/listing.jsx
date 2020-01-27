@@ -5,7 +5,10 @@ export class Listing extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {name_filter: ""};
+    this.state = {
+      name_filter: "",
+      sort_col_direction: {},
+    };
     this.onNameFilterChange = this.onNameFilterChange.bind(this);
   }
 
@@ -42,9 +45,43 @@ export class Listing extends React.Component {
     })
   }
 
+  onSortChange(field) {
+    let current_direction = this.state.sort_col_direction.direction;
+    let next_direction;
+
+    if (current_direction === 'asc') next_direction = 'desc';
+    else if (current_direction === 'desc') next_direction = 'asc';
+    else if (current_direction === 'default') next_direction = 'asc';
+    else if (current_direction === undefined) next_direction = 'asc';
+
+    this.setState({ sort_col_direction: { field: field, direction: next_direction }});
+  }
+
+  translate_direction(field, sort_col_direction) {
+    if(sort_col_direction == {}) return;
+    if(sort_col_direction["field"] != field) return;
+
+    let direction = sort_col_direction["direction"]
+    if (direction === 'asc') return "asc";
+    else if (direction === 'desc') return "desc";
+    else if (direction === 'default') return ;
+  }
+
+  sortByField(arr, sort_col_direction){
+    if(sort_col_direction == {}) return arr;
+
+    let field = sort_col_direction.field;
+    let direction = sort_col_direction.direction;
+
+    return arr.sort(function(a, b) {
+      if(direction == "asc") return a[field] - b[field];
+      if(direction == "desc") return b[field] - a[field];
+    });
+  }
+
   render() {
-    var results = this.filterByName(this.props.initial_results, this.state.name_filter);
-    console.log(results);
+    let results = this.filterByName(this.props.initial_results, this.state.name_filter);
+    results = this.sortByField(results, this.state.sort_col_direction);
 
     return <div>
       <input id="name_filter" onChange={this.onNameFilterChange} />
@@ -58,13 +95,25 @@ export class Listing extends React.Component {
       <td>Avg</td>
       <td>1st</td>
       <td>1st%</td>
-      <td>Fum</td>
-      <td>Lng</td>
+      <td> Fum </td>
+      <td>
+      <button onClick={() => this.onSortChange("lng")}>
+      Lng { this.translate_direction("lng", this.state.sort_col_direction) }
+      </button>
+      </td>
       <td>Pos</td>
-      <td>TD</td>
+      <td>
+      <button onClick={() => this.onSortChange("td")}>
+      TD { this.translate_direction("td", this.state.sort_col_direction) }
+      </button>
+      </td>
       <td>20+</td>
       <td>40+</td>
-      <td>Yds</td>
+      <td>
+      <button onClick={() => this.onSortChange("yds")}>
+      Yds { this.translate_direction("yds", this.state.sort_col_direction) }
+      </button>
+      </td>
       <td>Yds/G</td>
       </tr>
       </thead>
