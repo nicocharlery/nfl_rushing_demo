@@ -6,9 +6,11 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
+    "json2csv": "^4.5.4",
     "phoenix": "file:../../../deps/phoenix",
     "phoenix_html": "file:../../../deps/phoenix_html",
     "react": "^16.12.0",
+    "react-csv": "^1.1.2",
     "react-dom": "^16.12.0"
   },
   "devDependencies": {

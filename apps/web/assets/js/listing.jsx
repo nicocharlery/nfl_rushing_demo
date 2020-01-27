@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { CSVLink } from "react-csv";
+import { Parser } from "json2csv";
 
 export class Listing extends React.Component {
   constructor(props) {
@@ -79,12 +81,24 @@ export class Listing extends React.Component {
     });
   }
 
+  renderCSVLink(results) {
+    if(results.length == 0) return;
+    console.log(results)
+
+    const json2csvParser = new Parser();
+    const csvData = json2csvParser.parse(results);
+
+    return <CSVLink data={csvData} filename={"rushings.csv"} > Download me </CSVLink>
+  }
+
   render() {
     let results = this.filterByName(this.props.initial_results, this.state.name_filter);
     results = this.sortByField(results, this.state.sort_col_direction);
 
     return <div>
       <input id="name_filter" onChange={this.onNameFilterChange} />
+      { this.renderCSVLink(results) }
+
       <table>
       <thead>
       <tr>
