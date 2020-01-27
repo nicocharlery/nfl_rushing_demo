@@ -1,8 +1,27 @@
+<div id="root"/>
 <section class="row">
   <article class="column">
-    <h2>NFL Rushing</h2>
-
-    <table>
+    <table id="rushing_results">
+      <thead>
+	<input id="rushing_results_filter" />
+	<tr>
+	  <td>Name</td>
+	  <td>Team</td>
+	  <td>Att</td>
+	  <td>Att/G</td>
+	  <td>Avg</td>
+	  <td>1st</td>
+	  <td>1st%</td>
+	  <td>Fum</td>
+	  <td>Lng</td>
+	  <td>Pos</td>
+	  <td>TD</td>
+	  <td>20+</td>
+	  <td>40+</td>
+	  <td>Yds</td>
+	  <td>Yds/G</td>
+	</tr>
+      </thead>
       <tbody>
         <%= for player <- @players do %>
 	  <tr>
