@@ -26,8 +26,24 @@ export class ListingPage extends React.Component{
   }
 
   render() {
+    const fields = [
+      {accessor: "name", header: "Name"},
+      {accessor: "team", header: "Team"},
+      {accessor: "att", header: "Att"},
+      {accessor: "att_g", header: "Att/G"},
+      {accessor: "avg", header: "Avg"},
+      {accessor: "first", header: "1st"},
+      {accessor: "first_percent", header: "1st%"},
+      {accessor: "fum", header: "FUM"},
+      {accessor: "pos", header: "Pos"},
+      {accessor: "td", header: "TD", sortable: true},
+      {accessor: "val_20p", header: "20+"},
+      {accessor: "val_40p", header: "40+"},
+      {accessor: "yds", header: "Yds", sortable: true},
+      {accessor: "yds_g", header: "Yds/G", sortable: true}
+    ]
    return <div>
-      <Listing initial_results={this.state.results}/>
+      <Listing initial_results={this.state.results} fields={fields}/>
     </div>
   }
 }

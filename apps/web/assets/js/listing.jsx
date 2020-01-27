@@ -12,6 +12,8 @@ export class Listing extends React.Component {
       sort_col_direction: {},
     };
     this.onNameFilterChange = this.onNameFilterChange.bind(this);
+    this.renderRow = this.renderRow.bind(this);
+    this.generateHeader = this.generateHeader.bind(this);
   }
 
   onNameFilterChange(event){
@@ -20,23 +22,11 @@ export class Listing extends React.Component {
   }
 
   renderRow(row){
-    return <tr key={row["name"]}>
-      <td> {row["name"]} </td>
-      <td> {row["team"]} </td>
-      <td> {row["att"]} </td>
-      <td> {row["att_g"]} </td>
-      <td> {row["avg"]} </td>
-      <td> {row["first"]} </td>
-      <td> {row["first_percent"]} </td>
-      <td> {row["fum"]} </td>
-      <td> {row["lng"]} </td>
-      <td> {row["pos"]} </td>
-      <td> {row["td"]} </td>
-      <td> {row["val_20p"]} </td>
-      <td> {row["val_40p"]} </td>
-      <td> {row["yds"]} </td>
-      <td> {row["yds_g"]} </td>
-      </tr>
+    const fields = this.props.fields.map(function(field){
+      return <td key={ `${row['name']}-${field.accessor}` }>{ row[field.accessor] }</td>
+    });
+
+    return  <tr key={ row["name"] }>{fields}</tr>
   }
 
   filterByName(arr, query) {
@@ -83,7 +73,6 @@ export class Listing extends React.Component {
 
   renderCSVLink(results) {
     if(results.length == 0) return;
-    console.log(results)
 
     const json2csvParser = new Parser();
     const csvData = json2csvParser.parse(results);
@@ -91,9 +80,25 @@ export class Listing extends React.Component {
     return <CSVLink data={csvData} filename={"rushings.csv"} > Download me </CSVLink>
   }
 
+  generateHeader(field) {
+       if(field.sortable){
+	return  <td key={field.header} >
+	  <button onClick={() => this.onSortChange(field.accessor)}>
+	  {field.header} { this.translate_direction(field.accessor, this.state.sort_col_direction) }
+	  </button>
+	</td>
+
+      }else{
+	return <td key={ field.header }>{ field.header }</td>
+      }
+  }
+
   render() {
     let results = this.filterByName(this.props.initial_results, this.state.name_filter);
     results = this.sortByField(results, this.state.sort_col_direction);
+
+    let _this = this;
+    const headers = this.props.fields.map(this.generateHeader);
 
     return <div>
       <input id="name_filter" onChange={this.onNameFilterChange} />
@@ -102,33 +107,7 @@ export class Listing extends React.Component {
       <table>
       <thead>
       <tr>
-      <td>Name </td>
-      <td>Team</td>
-      <td>Att</td>
-      <td>Att/G</td>
-      <td>Avg</td>
-      <td>1st</td>
-      <td>1st%</td>
-      <td> Fum </td>
-      <td>
-      <button onClick={() => this.onSortChange("lng")}>
-      Lng { this.translate_direction("lng", this.state.sort_col_direction) }
-      </button>
-      </td>
-      <td>Pos</td>
-      <td>
-      <button onClick={() => this.onSortChange("td")}>
-      TD { this.translate_direction("td", this.state.sort_col_direction) }
-      </button>
-      </td>
-      <td>20+</td>
-      <td>40+</td>
-      <td>
-      <button onClick={() => this.onSortChange("yds")}>
-      Yds { this.translate_direction("yds", this.state.sort_col_direction) }
-      </button>
-      </td>
-      <td>Yds/G</td>
+      {headers}
       </tr>
       </thead>
       <tbody>
