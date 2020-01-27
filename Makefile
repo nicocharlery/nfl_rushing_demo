@@ -16,3 +16,6 @@ server:
 
 test:
 	docker-compose exec -e MIX_ENV=test application mix test
+
+destruct:
+	docker-compose rm

@@ -12,3 +12,8 @@ make server
 ```
 make test
 ```
+
+## Once finished..
+```
+make destruct
+```
